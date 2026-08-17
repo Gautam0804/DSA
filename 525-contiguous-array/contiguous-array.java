@@ -3,22 +3,23 @@ class Solution {
         HashMap<Integer, Integer> map = new HashMap<>();
         map.put(0,-1);
         int n = nums.length;
-        int maxLen = 0;
-        int sum = 0;
+        int prefixSum = 0;
+        int maxLength = 0;
 
         for(int i =0;i<n;i++){
-            if(nums[i] == 0 ){
-                sum--;
-            } else {
-                sum++;
+           if(nums[i] == 0){
+            prefixSum--;
+           } else {
+            prefixSum++;
+           }
+
+            if(map.containsKey(prefixSum)){
+                maxLength = Math.max(maxLength, i-map.get(prefixSum));
+            } else{
+            map.put(prefixSum, i);
             }
-            if(map.containsKey(sum)){
-                int length = i-map.get(sum);
-                maxLen = Math.max(maxLen,length);
-            } else {
-                map.put(sum,i);
-            }
+
         }
-        return maxLen;
+        return maxLength;
     }
 }
