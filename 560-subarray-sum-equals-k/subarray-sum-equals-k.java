@@ -1,27 +1,24 @@
 class Solution {
     public int subarraySum(int[] nums, int k) {
-        // step 1 find subarray
-        // step 2 sum of subarray = k
-        // step 3 print no of subarray
+       HashMap<Integer, Integer> map = new HashMap<>();
+       map.put(0,1);
 
-        // using HashMap
+       int n = nums.length;
+       int prefixSum = 0;
+       int count = 0;
 
-        HashMap<Integer, Integer> map = new HashMap<>();
+       for(int num:nums){
+        prefixSum += num;
 
-        map.put(0, 1);
+        int needed = prefixSum-k;
 
-        int sum = 0;
-        int total = 0;
-
-        for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
-
-            if (map.containsKey(sum - k)) {
-                total += map.get(sum - k);
-            } 
-                map.put(sum, map.getOrDefault(sum, 0) + 1);
+        if(map.containsKey(needed)){
+            count += map.get(needed);
         }
-        return total;
+        map.put(prefixSum, map.getOrDefault(prefixSum, 0)+1);
+       }
+       return count;
+
     }
 
 }
