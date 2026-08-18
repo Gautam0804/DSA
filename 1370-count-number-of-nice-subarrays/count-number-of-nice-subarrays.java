@@ -8,7 +8,7 @@ class Solution {
 
         for (int i = 0; i < n; i++) {
 
-            if (nums[i] % 2 == 1) {
+            if (nums[i] % 2 != 0) {
                 sum++;
             }
             if (map.containsKey(sum - k)) {
