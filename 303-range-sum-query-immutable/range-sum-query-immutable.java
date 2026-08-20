@@ -4,25 +4,14 @@ class NumArray {
 
     public NumArray(int[] nums) {
         int n = nums.length;
-        int sum = 0;
-        ans = new int[n];
-
+        ans = new int[n+1];
         for(int i=0;i<n;i++){
-            sum += nums[i];
-            ans[i] = sum;
+            ans[i+1] = ans[i]+nums[i];
         }
         
     }
-    
-    public int sumRange(int left, int right) {
-        int answer = 0;
-        
-        if(left == 0){
-             answer = ans[right];
-        } else {
-            answer = ans[right]-ans[left-1];
-        }
-        return answer;
+    public int sumRange(int left, int right){
+        return ans[right+1]-ans[left];
     }
 }
 
