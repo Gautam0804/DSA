@@ -1,44 +1,51 @@
 class Solution {
     public String shortestBeautifulSubstring(String s, int k) {
 
-        // Store positions of all 1's
-        ArrayList<Integer> ones = new ArrayList<>();
+        int left = 0;
+        int ones = 0;
 
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '1') {
-                ones.add(i);
-            }
-        }
-
-        // If total number of 1's is less than k,
-        // no beautiful substring exists
-        if (ones.size() < k) {
-            return "";
-        }
-
-        String ans = "";
         int minLen = Integer.MAX_VALUE;
+        String ans = "";
 
-        // Consider every group of k consecutive 1's
-        for (int i = 0; i + k - 1 < ones.size(); i++) {
+        for (int right = 0; right < s.length(); right++) {
 
-            int start = ones.get(i);
-            int end = ones.get(i + k - 1);
-
-            int len = end - start + 1;
-
-            // Current substring
-            String curr = s.substring(start, end + 1);
-
-            // Case 1: Found a shorter substring
-            if (len < minLen) {
-                minLen = len;
-                ans = curr;
+            // Add current character
+            if (s.charAt(right) == '1') {
+                ones++;
             }
 
-            // Case 2: Same length, choose lexicographically smaller
-            else if (len == minLen && curr.compareTo(ans) < 0) {
-                ans = curr;
+            // If we have more than k ones,
+            // move left until we have k again
+            while (ones > k) {
+                if (s.charAt(left) == '1') {
+                    ones--;
+                }
+                left++;
+            }
+
+            // Exactly k ones
+            if (ones == k) {
+
+                // Remove leading zeros to make
+                // the substring as short as possible
+                while (s.charAt(left) == '0') {
+                    left++;
+                }
+
+                int len = right - left + 1;
+                String curr = s.substring(left, right + 1);
+
+                // Shorter substring
+                if (len < minLen) {
+                    minLen = len;
+                    ans = curr;
+                }
+
+                // Same length -> lexicographically smaller
+                else if (len == minLen &&
+                         curr.compareTo(ans) < 0) {
+                    ans = curr;
+                }
             }
         }
 
