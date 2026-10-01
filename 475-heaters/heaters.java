@@ -27,15 +27,11 @@ class Solution {
         while (i < houses.length && j < heaters.length) {
 
             if (houses[i] < heaters[j] - radius) {
-                // House is too far to the left
                 return false;
             }
-
             if (houses[i] > heaters[j] + radius) {
-                // Current heater is too far left
                 j++;
             } else {
-                // House is covered
                 i++;
             }
         }
