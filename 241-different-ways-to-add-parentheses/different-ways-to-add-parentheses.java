@@ -4,7 +4,7 @@ class Solution {
 
         List<Integer> result = new ArrayList<>();
 
-        for (int i = 1; i < expression.length(); i++) {
+        for (int i = 0; i < expression.length()-1; i++) {
 
             char ch = expression.charAt(i);
 
